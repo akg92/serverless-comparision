@@ -1,0 +1,9 @@
+[
+
+    {
+        "job_name":"aws_stress_test",
+        "threads":20,
+        "end_point":"https://"
+
+    }
+]
