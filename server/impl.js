@@ -1,14 +1,13 @@
 
 const https = require('https');
-exports.add = async ()=>{
+exports.add =  ()=>{
     
     let time =  Date.now();
-    var respone = response_builder(time);
+    var response = response_builder(time);
     return response;
 }
 
-
-exports.request = async()=>{
+exports.request = async ()=>{
     
     
     var id = randomInt();

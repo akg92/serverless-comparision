@@ -1,5 +1,5 @@
-const impl = require('impl');
-const provider = require('require');
+const impl = require('./impl');
+const provider = require('./provider');
 const providerType = 'Test';
 
 exports.handler = async (event,context,callback) => {
@@ -12,9 +12,10 @@ exports.handler = async (event,context,callback) => {
     switch(query){
         
         case "add":
-            response = impl.add();
+            response = await impl.add();
+            break;
         case "request":
-            response = impl.request();
+            response = await impl.request();
     }
 
     // write the response

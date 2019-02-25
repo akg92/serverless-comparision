@@ -48,6 +48,7 @@ class AWS extends Base {
 class Azure extends Base {
 
     constructor(context,request){
+        super();
         this.context = context;
         this.request = request;
     }
@@ -64,8 +65,21 @@ class Azure extends Base {
 
 class TestProvider extends Base{
 
+    constructor(req,res){
+        super();
+        this.req = req;
+        this.res = res;
+    }
     getQueryParam(paramName){
-        return "";
+        return  this.req.query[paramName];
+    }
+    writeResponse(response){
+        
+        if(!response){
+            response = createResponse();
+        }
+        this.res.send(response);
+
     }
     
 }
@@ -80,6 +94,6 @@ exports.getProvider=(providerType,param1,param2,param3)=>{
         case "Azure":
             return new Azure(param1,param2);
         default:
-            return TestProvider();
+            return new TestProvider(param1,param2);
     }
 }
