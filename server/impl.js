@@ -31,7 +31,7 @@ var get_request = (url)=>{
     );
 }
 var randomInt = ()=>{
-    const max = 1000;
+    const max = 200;
     return Math.floor(Math.random()*max);
 }
 var write_rsponse=(callback)=>{

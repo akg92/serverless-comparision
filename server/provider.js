@@ -76,7 +76,7 @@ class TestProvider extends Base{
     writeResponse(response){
         
         if(!response){
-            response = createResponse();
+            response = this.createResponse();
         }
         this.res.send(response);
 
