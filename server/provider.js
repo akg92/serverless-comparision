@@ -55,7 +55,7 @@ class Azure extends Base {
 
     getQueryParam(paramName){
         // Return the required Query Parameter
-        return this.request.query.paramName;
+        return this.request.query[paramName];
     } 
 
     writeResponse(response){
@@ -79,7 +79,7 @@ class GCP extends Base {
 
     getQueryParam(paramName){
         // Return the required Query Parameter
-        return this.request.body.paramName;
+        return this.request.body[paramName];
     } 
 
     writeResponse(response){
