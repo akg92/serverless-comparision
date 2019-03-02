@@ -20,6 +20,27 @@ exports.request = async ()=>{
     
 }
 
+exports.matrix_mul = (n)=>{
+    // Initialize random matrix without zeros
+    var mat = initialize_random_mat(n);
+
+    // Perform multiplication with itself
+    var res = [];
+    for(var i=0;i<n;i++){
+        res[i] = []
+        for(var j=0;j<n;j++){
+            curres = 0
+            for(var k=0;k<n;k++){
+                curres = curres + (mat[i][k] * mat[k][j]);
+            }
+             res[i][j] = curres;    
+        }
+    }
+    return res
+
+}
+
+
 var get_request = (url)=>{
     
     return new Promise((resolve,reject)=>{
@@ -31,7 +52,7 @@ var get_request = (url)=>{
     );
 }
 var randomInt = ()=>{
-    const max = 200;
+    const max = 1000;
     return Math.floor(Math.random()*max);
 }
 var write_rsponse=(callback)=>{
@@ -46,3 +67,15 @@ var response_builder = (str)=>{
     rsp.q_time = str;
     return JSON.stringify(rsp);
 }
+
+var initialize_random_mat = (n)=>{
+    var mat = [];
+    for (var i = 0 ; i < n; i++) {
+        mat[i] = [];
+        for (var j = 0; j < n; j++) {
+            mat[i][j] = (Math.random() * (Number.MAX_VALUE - 1) + 1.0);
+        }
+    }
+    return mat;
+}
+

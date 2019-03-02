@@ -1,7 +1,7 @@
 from time import gmtime
+from datetime import datetime
 import csv 
 import json 
-from datetime import datetime
 class SingleResponse:
 
     def __init__(self,id,start_time=None,q_time=None,end_time=None):

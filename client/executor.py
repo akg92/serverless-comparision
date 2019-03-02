@@ -7,7 +7,7 @@ from urllib import request
 from config import ConfigReader
 from threading import Thread
 """
-    Single thread
+    Sing thrahd
 """
 
 def execute_single(id,config,response_list):

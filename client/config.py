@@ -1,7 +1,7 @@
 import os
 import json
 
-""""
+"""
     Single configuration object. The init method loops through all the configuration. 
     Should be modified if hits hits performance.
 """
