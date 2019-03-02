@@ -61,7 +61,7 @@ var write_rsponse=(callback)=>{
     var respone = response_builder(time);
     callback(null,respone);
 }
-var response_builder = (str)=>{
+exports.response_builder = (str)=>{
     
     var rsp = {};
     rsp.q_time = str;
