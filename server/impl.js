@@ -7,6 +7,7 @@ exports.add =  ()=>{
     return response;
 }
 
+
 exports.request = async ()=>{
     
     
@@ -19,6 +20,24 @@ exports.request = async ()=>{
     
     
 }
+
+exports.matrix_mul = (n)=>{
+    // Initialize random matrix without zeros
+    var mat = initialize_random_mat(n);
+
+    // Perform multiplication with itself
+    var res = [];
+    for(var i=0;i<n;i++){
+        for(var j=0;j<n;j++){
+            res[i]=[]
+            for(var k=0;k<n;k++){
+
+            }
+        }
+    }
+
+}
+
 
 var get_request = (url)=>{
     
@@ -46,3 +65,15 @@ var response_builder = (str)=>{
     rsp.q_time = str;
     return JSON.stringify(rsp);
 }
+
+var initialize_random_mat = (n)=>{
+    var mat = [];
+    for (var i = 0 ; i < n; i++) {
+        mat[i] = [];
+        for (var j = 0; j < n; j++) {
+            mat[i][j] = (Math.random() * (Number.MAX_VALUE - 1) + 1.0);
+        }
+    }
+    return mat;
+}
+
