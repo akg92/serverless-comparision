@@ -16,6 +16,9 @@
     "jobs": [
         "request",
         "add",
-        "matmul"
+        "matmul",
+        "io",
+        "memory",
+        "container"
     ]
 }

@@ -11,7 +11,10 @@ class SingleResponse:
             self.start_time = round(datetime.timestamp(datetime.utcnow())*1000)
         else:
             self.start_time = start_time
-        self.q_time = q_time
+        
+        # qtime is not valid as of now.
+        #self.q_time = q_time
+        #
         self.end_time = end_time
 
     def end(self):
@@ -19,21 +22,25 @@ class SingleResponse:
 
     def set_q_time(self,response):
         json_response = json.loads(response)
-        if json_response and ('q_time' in json_response):
-            self.q_time = int(json_response['q_time'])
+        if json_response and ('server_start_time' in json_response):
+            self.server_start_time = int(json_response['server_start_time'])
+            self.server_end_time = int(json_response['server_end_time'])
+            self.additional_info = int(json_response['additional_info'])
         else:
-            print("Erron in q_time. Reponse is "+response) 
+            self.server_start_time = -1
+            self.server_end_time = -1
+
     
     def __str__(self):
-        return '{},{},{},{}'.format(self.id,self.start_time,self.q_time,self.end_time)
+        return '{},{},{},{},{},{}'.format(self.id,self.start_time,self.server_start_time,self.server_end_time,self.end_time)
 
     def get_row(self):
-        return [self.id,self.start_time,self.q_time,self.end_time]
+        return [self.id,self.start_time,self.server_start_time,self.server_end_time,self.additional_info,self.end_time]
 
 
 class Responses: 
 
-    CSV_HEADERS = ['id','start_time','q_time','end_time']
+    CSV_HEADERS = ['id','start_time','server_start_time','server_end_time','additional_info','end_time']
     def __init__(self,config):
         self.job_name = config.job_name
         self.dir_name = config.dir_name
@@ -58,7 +65,7 @@ class Responses:
 
     def make_dir_if_not_exist(self):
         
-        ## try to create and fail.
+        ## try to create and catch on fail.
         try:
             os.mkdir(self.dir_name)
         except:
