@@ -1,0 +1,21 @@
+{
+    "platforms": [
+        {
+            "platform": "aws",
+            "base_url": "https://uxm8bum81d.execute-api.us-east-1.amazonaws.com/default/test"
+        },
+        {
+            "platform": "azure",
+            "base_url": "https://testappserverless.azurewebsites.net/api/HttpTrigger1"
+        },
+        {
+            "platform": "gcp",
+            "base_url": "https://us-central1-utopian-river-233302.cloudfunctions.net/anvaygcftest"
+        }
+    ],
+    "jobs": [
+        "request",
+        "add",
+        "matmul"
+    ]
+}

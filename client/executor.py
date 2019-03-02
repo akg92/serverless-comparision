@@ -21,7 +21,7 @@ def execute_single(id,config,response_list):
 
 def execute_job(job_name):
     config = ConfigReader.get_configuration(job_name)
-    responses = Responses(job_name)
+    responses = Responses(config)
     thread_list = []
 
     for i in range(config.threads):
@@ -38,12 +38,40 @@ def execute_job(job_name):
     responses.finished()
 
 
+def execute_job_all_platfrom(threads):
+
+    # number of threads.
+    threads = int(threads)
+    ## cmd line job options.
+    ## slice from second option.
+    cmd_jobs = sys.argv[2:]
+
+    configs = ConfigReader.get_configurations(threads,cmd_jobs=cmd_jobs)
+
+    
+
+    ## for each item in the configuration. 
+    ## for multi also configuration objects are adjusted to be the same.
+    for config in configs:
+        responses = Responses(config)
+        thread_list = []
+
+        for i in range(config.threads):
+            th = Thread(target=execute_single,args=(i,config,responses))
+            thread_list.append(th)
+            th.start()
+        #wait all
+        for th in thread_list:
+            th.join()
+        # write the response in csv
+        responses.finished()
 
 
-if len(sys.argv)!=2:
+
+if len(sys.argv)<2:
     print("provide the proper commandline option")
 else:
-    execute_job(sys.argv[1])
+    execute_job_all_platfrom(sys.argv[1])
     
     
 

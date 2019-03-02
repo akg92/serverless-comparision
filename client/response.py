@@ -1,7 +1,8 @@
 from time import gmtime
 from datetime import datetime
 import csv 
-import json 
+import json
+import os 
 class SingleResponse:
 
     def __init__(self,id,start_time=None,q_time=None,end_time=None):
@@ -18,7 +19,10 @@ class SingleResponse:
 
     def set_q_time(self,response):
         json_response = json.loads(response)
-        self.q_time = int(json_response['q_time']) 
+        if json_response and ('q_time' in json_response):
+            self.q_time = int(json_response['q_time'])
+        else:
+            print("Erron in q_time. Reponse is "+response) 
     
     def __str__(self):
         return '{},{},{},{}'.format(self.id,self.start_time,self.q_time,self.end_time)
@@ -30,8 +34,9 @@ class SingleResponse:
 class Responses: 
 
     CSV_HEADERS = ['id','start_time','q_time','end_time']
-    def __init__(self,job_name):
-        self.job_name = job_name
+    def __init__(self,config):
+        self.job_name = config.job_name
+        self.dir_name = config.dir_name
         self.responses = []
     
     def create_add_response(self,id,start_time=None,q_time=None,end_time=None):
@@ -40,13 +45,26 @@ class Responses:
 
     def get_file_name(self,time_stamp=True):
         
+        file_name = None
         if time_stamp:
-            return self.job_name+"_"+str(round(datetime.timestamp(datetime.utcnow())*1000))+".csv"
+            file_name = self.job_name+"_"+str(round(datetime.timestamp(datetime.utcnow())*1000))+".csv"
         else:
-            return self.job_name+".csv"
+            file_name = self.job_name+".csv"
+
+        return os.path.join(self.dir_name,file_name)
 
     def add_response(self,r_object):
         self.responses.append(r_object)
+
+    def make_dir_if_not_exist(self):
+        
+        ## try to create and fail.
+        try:
+            os.mkdir(self.dir_name)
+        except:
+            pass
+            
+
     
     """
         Write all the result
@@ -54,6 +72,7 @@ class Responses:
 
     def finished(self):
 
+        self.make_dir_if_not_exist()
         out_file_name = self.get_file_name()
         with open(out_file_name,'w') as f:
             writer = csv.writer(f,delimiter=',')
