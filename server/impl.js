@@ -61,12 +61,13 @@ var write_rsponse=(callback)=>{
     var respone = response_builder(time);
     callback(null,respone);
 }
-exports.response_builder = (str)=>{
+var response_builder = (str)=>{
     
     var rsp = {};
     rsp.q_time = str;
     return JSON.stringify(rsp);
 }
+exports.response_builder = response_builder;
 
 var initialize_random_mat = (n)=>{
     var mat = [];
