@@ -7,7 +7,7 @@ import json
 """
 class Configuration:
 
-    def __init__(name,json_data):
+    def __init__(self,name,json_data):
         self.job_name = name 
         for obj in json_data:
             if obj['job_name']==name:
@@ -26,8 +26,8 @@ class ConfigReader:
     @staticmethod
     def get_configuration(name):
         if not ConfigReader.json_data:
-            with open(os.path.join(os.path.pardir(__file__),ConfigReader.CONFIG_FILE)) as f:
-                ConfigReader.JSON_DATA =  json.load(f)
+            with open(os.path.join(os.path.dirname(__file__),ConfigReader.CONFIG_FILE)) as f:
+                ConfigReader.json_data =  json.load(f)
         
         return Configuration(name,ConfigReader.json_data)
         
