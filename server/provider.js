@@ -54,19 +54,8 @@ class Azure extends Base {
     }
 
     getQueryParam(paramName){
-        // Return the required Query Parameter
-        return this.request.query.paramName;
+        
     } 
-
-    writeResponse(response){
-        // Response being sent as a JSON string in the body part of the actual response
-         if(!response){
-            response = this.createResponse();
-        }
-        this.context.res = {
-            body: response
-        }
-    }
 
 }
 
@@ -87,7 +76,7 @@ class TestProvider extends Base{
     writeResponse(response){
         
         if(!response){
-            response = this.createResponse();
+            response = createResponse();
         }
         this.res.send(response);
 
