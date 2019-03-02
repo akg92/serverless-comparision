@@ -68,6 +68,30 @@ class Azure extends Base {
         }
     }
 }
+
+class GCP extends Base {
+
+    constructor(request,response){
+        super();
+        this.request = request;
+        this.response = response;
+    }
+
+    getQueryParam(paramName){
+        // Return the required Query Parameter
+        return this.request.body.paramName;
+    } 
+
+    writeResponse(response){
+        // Response being sent as a JSON string in the body part of the actual response
+         if(!response){
+            response = this.createResponse();
+        }
+        this.response.send(response);
+    }
+}
+
+
 /*
     Test code goes here
 */
@@ -102,6 +126,8 @@ exports.getProvider=(providerType,param1,param2,param3)=>{
             return new AWS(param1,param2,param3);
         case "Azure":
             return new Azure(param1,param2);
+        case "GCP":
+            return new GCP(param1,param2)
         default:
             return new TestProvider(param1,param2);
     }
