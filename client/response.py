@@ -38,8 +38,12 @@ class Responses:
         single_response = SingleResponse(id,start_time,q_time,end_time)
         self.responses.append(single_response)
 
-    def get_file_name(self):
-        return self.job_name+".csv"
+    def get_file_name(self,time_stamp=True):
+        
+        if time_stamp:
+            return self.job_name+"_"+str(round(datetime.timestamp(datetime.utcnow())*1000))+".csv"
+        else:
+            return self.job_name+".csv"
 
     def add_response(self,r_object):
         self.responses.append(r_object)
