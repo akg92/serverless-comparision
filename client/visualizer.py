@@ -3,7 +3,7 @@
 """
 
 import sys
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from datetime import datetime,timedelta
@@ -28,9 +28,19 @@ def compute_queue_time(job_df):
     return (server_start_time-start_time)
 
 
+def compute_response_time(job_df):
+    #Extract server start time and start time from data frame
+    start_time = job_df['start_time'].values
+    end_time = job_df['end_time'].values
+    return (end_time-start_time)/int(1e6)
+
+
 
 job_df= load_job_file()
 preprocess_df(job_df)
-print(compute_queue_time(job_df))
+print(compute_response_time(job_df))
+
+plt.plot(job_df['id'].values,compute_response_time(job_df))
+plt.savefig('responseVThreads.png')
 
 
